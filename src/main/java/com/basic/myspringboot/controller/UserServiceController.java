@@ -1,14 +1,62 @@
 package com.basic.myspringboot.controller;
 
+import com.basic.myspringboot.controller.dto.UserDTO;
+import com.basic.myspringboot.entity.User;
 import com.basic.myspringboot.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-//final 인 변수를 초기화하는 생성자를 자동으로 생성해주는 역할을 하는 롬복 어노테이션
 @RequestMapping("/api/users")
 public class UserServiceController {
     private final UserService userService;
+
+    @PostMapping
+    public UserDTO.UserResponse create(@RequestBody UserDTO.UserCreateRequest request) {
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+
+        User savedUser = userService.createUser(user);
+        return new UserDTO.UserResponse(savedUser);
+    }
+
+    @GetMapping
+    public List<UserDTO.UserResponse> getUsers() {
+        return userService.getAllUsers()
+                //List<User>=>Stream(User)
+                .stream()
+                //User -> UserDTO.UserResoponse
+                .map(user -> new UserDTO.UserResponse(user))
+                //.map(UserDTO.UserResponse::new)
+                .toList();
+
+    }
+
+    @GetMapping("/{id}")
+    public  UserDTO.UserResponse getUserById(@PathVariable Long id) {
+        User existUser = userService.getUserById(id);
+        return new UserDTO.UserResponse(existUser);
+
+    }
+
+    @GetMapping("email/{email}/")
+    public UserDTO.UserResponse getUserByEmail(@PathVariable String email){
+        return new UserDTO.UserResponse( userService.getUserByEmail(email));
+    }
+
+    @PatchMapping("/{email}")
+    public UserDTO.UserResponse updateUser(@PathVariable String email,
+                                           @Valid @RequestBody UserDTO.UserUpdateRequest userDetail){
+        User user = new User();
+        user.setName(userDetail.getName());
+
+        User updateUser = userService.updateUserByEmail(email, user);
+        return new UserDTO.UserResponse(updateUser);
+    }
+
 }

@@ -12,13 +12,10 @@ public class ErrorObject {
     private String message;
     private String timestamp;
 
-
     public String getTimestamp() {
         LocalDateTime ldt = LocalDateTime.now();
         return DateTimeFormatter.ofPattern(
                 "yyyy-MM-dd HH:mm:ss E a",
                 Locale.KOREA).format(ldt);
-
     }
-
 }

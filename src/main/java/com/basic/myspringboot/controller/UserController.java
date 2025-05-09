@@ -42,14 +42,15 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+    public String showUpdateForm(@PathVariable("id") long id,
+                                 Model model) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
         return "update-user";
     }
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable("id") long id,
+    public String updateUser(@PathVariable long id,
                              @Valid @ModelAttribute("user") User user,
                              BindingResult result) {
         if (result.hasErrors()) {
@@ -61,12 +62,12 @@ public class UserController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+    public String deleteUser(@PathVariable("id") long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userRepository.delete(user);
         return "redirect:/index";
     }
-
 
     @GetMapping("/thymeleaf")
     public String leaf(Model model) {
