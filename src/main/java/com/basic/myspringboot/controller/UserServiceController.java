@@ -55,7 +55,7 @@ public class UserServiceController {
         User user = new User();
         user.setName(userDetail.getName());
 
-        User updateUser = userService.updateUserByEmail(email, user);
+        User updateUser = userService.updateUserByEmail(email, userDetail);
         return new UserDTO.UserResponse(updateUser);
     }
 
