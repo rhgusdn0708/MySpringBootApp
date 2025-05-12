@@ -27,7 +27,7 @@ public class StudentService {
         return studentRepository.findAll()
                 .stream()
                 .map(StudentDTO.Response::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public StudentDTO.Response getStudentById(Long id) {
