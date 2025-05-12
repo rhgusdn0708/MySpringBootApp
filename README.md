@@ -1,3 +1,4 @@
-### Spring Boot 와 JAV
-*User의 CRUD
-*Entity
+### Security Form 인증 적용
+* Basic 인증
+ * 스프링이 제공하는 인증화면 사용
+ * 이후에 JWT 토큰 인증 방법 사용 예정
