@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+//StudentDetailRepository 인터페이스
 @Repository
 public interface StudentDetailRepository extends JpaRepository<StudentDetail, Long> {
     

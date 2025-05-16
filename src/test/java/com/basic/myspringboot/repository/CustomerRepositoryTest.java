@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,8 +23,8 @@ class CustomerRepositoryTest {
 
     @Test
     @Rollback(value = false)
-    void testDeleteCustomer(){
-        Customer customer = customerRepository.findById(1L)  //Optional<Customer>
+    void testDeleteCustomer() {
+        Customer customer = customerRepository.findById(10L)  //Optional<Customer>
                 .orElseThrow(() -> new RuntimeException("Customer Not Found"));
         customerRepository.delete(customer);
     }
@@ -44,15 +43,15 @@ class CustomerRepositoryTest {
         assertThat(customer.getCustomerName()).isEqualTo("홍길동");
     }
 
+
     @Test
     void testByNotFoundException() {
         //<X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier)
         //Supplier 의 추상메서드 T get()
-        Customer customer = customerRepository.findByCustomerId("A001")
+        Customer customer = customerRepository.findByCustomerId("A004")
                 .orElseThrow(() -> new RuntimeException("Customer Not Found"));
         //assertThat(customer.getCustomerId()).isEqualTo("A001");
     }
-
 
     @Test
         //@Disabled

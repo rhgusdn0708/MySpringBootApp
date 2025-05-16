@@ -50,6 +50,7 @@ public class DefaultExceptionAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     protected ResponseEntity<Object> handleException(HttpMessageNotReadableException e) {
         log.error(e.getMessage(), e);
+
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("message", e.getMessage());
         result.put("httpStatus", HttpStatus.BAD_REQUEST.value());

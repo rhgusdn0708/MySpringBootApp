@@ -50,5 +50,9 @@ public class UserDTO {
             this.email = user.getEmail();
             this.createdAt = user.getCreatedAt();
         }
+
+//        public LocalDateTime getCreatedAt() {
+//            return createdAt;
+//        }
     }
 }

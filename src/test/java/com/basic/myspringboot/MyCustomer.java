@@ -1,4 +1,4 @@
-package com.basic.myspringboot.repository;
+package com.basic.myspringboot;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
