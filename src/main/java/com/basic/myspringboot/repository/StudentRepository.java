@@ -28,4 +28,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     // 새로 추가된 메서드
     @Query("SELECT COUNT(s) FROM Student s WHERE s.department.id = :departmentId")
     Long countByDepartmentId(@Param("departmentId") Long departmentId);
+
+
 }
